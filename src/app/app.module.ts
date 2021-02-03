@@ -11,17 +11,17 @@ import { ConfirmationService } from 'primeng/api';
 import { MessageService } from 'primeng/api';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
-  imports: [
-    BrowserAnimationsModule,
-    AppRoutingModule,
-    HttpClientModule,
+    declarations: [
+        AppComponent
+    ],
+    imports: [
+        BrowserAnimationsModule,
+        AppRoutingModule,
+        HttpClientModule,
 
-		ButtonModule,
-  ],
-  providers: [ProductService, MessageService, ConfirmationService],
-  bootstrap: [AppComponent]
+        ButtonModule,
+    ],
+    providers: [ProductService, MessageService, ConfirmationService],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }

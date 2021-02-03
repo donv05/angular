@@ -24,13 +24,15 @@ import {RadioButtonModule} from 'primeng/radiobutton';
 import {InputNumberModule} from 'primeng/inputnumber';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import { DialogComponent } from './dialog/dialog.component';
 
 
 
 @NgModule({
   declarations: [
     UserComponent,
-    UserListComponent
+    UserListComponent,
+    DialogComponent
   ],
   imports: [
     CommonModule,

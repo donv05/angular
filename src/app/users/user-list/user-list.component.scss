@@ -1,10 +1,10 @@
-:host(.active) {
-  display: block;
-  background-color: red;
-}
-:host-context(.theme-light) h2 {
-  background-color: #eef;
-}
+// :host(.active) {
+//   display: block;
+//   background-color: red;
+// }
+// :host-context(.theme-light) h2 {
+//   background-color: #eef;
+// }
 
 :host ::ng-deep {
   .p-paginator {

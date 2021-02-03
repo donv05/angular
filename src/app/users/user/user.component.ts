@@ -7,7 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserComponent implements OnInit {
 
+  data: Array<string> = ['name'];
   constructor() { }
+
 
   ngOnInit() {
   }

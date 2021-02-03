@@ -1,4 +1,4 @@
-import { Component, HostBinding, OnInit } from '@angular/core';
+import { Component, HostBinding, Input, OnChanges, OnInit, AfterViewChecked, AfterViewInit } from '@angular/core';
 
 import { ConfirmationService } from 'primeng/api';
 import { MessageService } from 'primeng/api';
@@ -10,36 +10,52 @@ import {Product} from '../shared/user.model';
   templateUrl: './user-list.component.html',
   styleUrls: ['./user-list.component.scss']
 })
-export class UserListComponent implements OnInit {
+export class UserListComponent implements OnInit, OnChanges,  AfterViewChecked, AfterViewInit{
 
-  productDialog: boolean;
+    @Input() userData;
 
-  products: Product[];
+    productDialog: boolean;
 
-  product: Product;
+    products: Product[];
 
-  selectedProducts: Product[];
+    product: Product;
 
-  submitted: boolean;
+    selectedProducts: Product[];
 
-  constructor(
-    private productService: ProductService,
-    private messageService: MessageService,
-    private confirmationService: ConfirmationService) { }
+    submitted: boolean;
 
-  @HostBinding('class') get themeClass() {
-    return 'theme-light';
-  }
+    constructor(
+        private productService: ProductService,
+        private messageService: MessageService,
+        private confirmationService: ConfirmationService) { }
 
-  ngOnInit() {
-    this.productService.getProducts().then(data => this.products = data);
-  }
+    ngAfterViewInit(): void {
+        debugger
+        // throw new Error('Method not implemented.');
+    }
 
-  openNew() {
-    this.product = {};
-    this.submitted = false;
-    this.productDialog = true;
-}
+    ngOnChanges(){
+        console.log('ngOnChanges', this.userData)
+    }
+
+    @HostBinding('class') get themeClass() {
+        return 'theme-light';
+    }
+
+    ngOnInit() {
+        console.log('ngOnInit')
+        this.productService.getProducts().then(data => this.products = data);
+    }
+
+    ngAfterViewChecked() {
+      debugger
+    }
+
+    openNew() {
+        this.product = {};
+        this.submitted = false;
+        this.productDialog = true;
+    }
 
     deleteSelectedProducts() {
         this.confirmationService.confirm({
@@ -73,14 +89,13 @@ export class UserListComponent implements OnInit {
     }
 
     hideDialog() {
-        this.productDialog = false;
-        this.submitted = false;
+        // this.productDialog = false;
+        // this.submitted = false;
     }
 
-    saveProduct() {
-        this.submitted = true;
-
-        if (this.product.name.trim()) {
+    saveProduct(product: Product) {
+        this.product = product ? product: null;
+        if (this.product.name && this.product.name.trim()) {
             if (this.product.id) {
                 this.products[this.findIndexById(this.product.id)] = this.product;
                 this.messageService.add({severity:'success', summary: 'Successful', detail: 'Product Updated', life: 3000});
@@ -88,7 +103,8 @@ export class UserListComponent implements OnInit {
             else {
                 this.product.id = this.createId();
                 this.product.image = 'product-placeholder.svg';
-                this.products.push(this.product);
+                // this.products.push(this.product);
+                this.products.unshift(this.product);
                 this.messageService.add({severity:'success', summary: 'Successful', detail: 'Product Created', life: 3000});
             }
 
